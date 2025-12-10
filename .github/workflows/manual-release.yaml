@@ -32,7 +32,8 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: npm
-          registry-url: https://registry.npmjs.org
+          registry-url: https://npm.pkg.github.com
+          scope: "@copoint-data"
 
       - name: Install dependencies
         run: npm ci
@@ -142,10 +143,10 @@ jobs:
           ## 📦 Installation
 
           ```bash
-          npx bmad-method install
+          npx @copoint-data/bmad-method install
           ```
 
-          **Full Changelog**: https://github.com/bmad-code-org/BMAD-METHOD/compare/${{ steps.version.outputs.previous_tag }}...v${{ steps.version.outputs.new_version }}
+          **Full Changelog**: https://github.com/CoPoint-Data/BMAD-METHOD/compare/${{ steps.version.outputs.previous_tag }}...v${{ steps.version.outputs.new_version }}
           EOF
 
           # Output for GitHub Actions
@@ -172,9 +173,9 @@ jobs:
             echo "📝 Version bump and tag were created successfully."
           fi
 
-      - name: Publish to NPM
+      - name: Publish to GitHub Packages
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${{ steps.version.outputs.new_version }}"
           if [[ "$VERSION" == *"alpha"* ]] || [[ "$VERSION" == *"beta"* ]]; then
@@ -199,7 +200,7 @@ jobs:
 
             - `bmad-bundles-v${{ steps.version.outputs.new_version }}.tar.gz` - All modules (BMM, BMB, CIS, BMGD)
 
-            **Browse online** (bleeding edge): https://bmad-code-org.github.io/bmad-bundles/
+            **Browse online** (bleeding edge): https://CoPoint-Data.github.io/bmad-bundles/
           draft: false
           prerelease: ${{ contains(steps.version.outputs.new_version, 'alpha') || contains(steps.version.outputs.new_version, 'beta') }}
           files: |
@@ -210,11 +211,11 @@ jobs:
           echo "## 🎉 Successfully released v${{ steps.version.outputs.new_version }}!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📦 Distribution" >> $GITHUB_STEP_SUMMARY
-          echo "- **NPM**: Published with @latest tag" >> $GITHUB_STEP_SUMMARY
-          echo "- **GitHub Release**: https://github.com/bmad-code-org/BMAD-METHOD/releases/tag/v${{ steps.version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **GitHub Packages**: Published with @latest tag" >> $GITHUB_STEP_SUMMARY
+          echo "- **GitHub Release**: https://github.com/CoPoint-Data/BMAD-METHOD/releases/tag/v${{ steps.version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Web Bundles**: Attached to GitHub Release (4 archives)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### ✅ Installation" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-          echo "npx bmad-method@${{ steps.version.outputs.new_version }} install" >> $GITHUB_STEP_SUMMARY
+          echo "npx @copoint-data/bmad-method@${{ steps.version.outputs.new_version }} install" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
