@@ -1,0 +1,179 @@
+# Gamma Presentation Template
+template:
+  id: gamma-presentation-template-v1
+  name: Gamma Presentation Document
+  version: "1.0"
+  output:
+    format: markdown
+    filename: docs/gamma-presentation.md
+    title: "{{presentation_title}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: presentation-config
+    title: Presentation Configuration
+    instruction: |
+      Gather key information about the presentation to configure Gamma API parameters.
+
+      Ask the user about:
+      1. Presentation title and topic
+      2. Target audience (e.g., investors, customers, team members, executives)
+      3. Desired tone (e.g., professional, casual, inspiring, technical)
+      4. Number of slides (recommend 8-12 for most presentations)
+      5. Format preference (presentation, document, webpage)
+      6. Content generation mode (generate new content, preserve provided content, or condense)
+
+      Document these choices as they will be used for the Gamma API call.
+    elicit: true
+    sections:
+      - id: basic-info
+        title: Basic Information
+        type: key-value
+        instruction: |
+          Capture:
+          - Presentation Title
+          - Topic/Subject
+          - Target Audience
+          - Desired Tone
+          - Estimated Duration (if presenting)
+      - id: gamma-settings
+        title: Gamma API Settings
+        type: key-value
+        instruction: |
+          Document:
+          - Format (presentation/document/webpage)
+          - Number of Cards/Slides
+          - Text Mode (generate/preserve/condense)
+          - Theme Preference (will list available themes)
+          - Image Options (if custom images are needed)
+
+  - id: content-outline
+    title: Content Outline
+    instruction: |
+      Create a high-level outline of the presentation structure. Each slide should have:
+      - Slide number and title
+      - Key points or content summary (2-4 bullet points per slide)
+      - Any specific visual elements or data to include
+
+      Follow presentation best practices:
+      - Start with a hook/title slide
+      - Set context and agenda early
+      - One main idea per slide
+      - Use the "Rule of Three" where possible
+      - Build logical flow from slide to slide
+      - End with clear takeaways/call-to-action
+
+      Present the complete outline for user review and refinement.
+    elicit: true
+    examples:
+      - "Slide 1: Title Slide - Presentation title, presenter name, date"
+      - "Slide 2: Problem Statement - Define the challenge we're addressing"
+      - "Slide 3: Market Opportunity - Size, growth, and key trends"
+      - "Slide 4: Our Solution - Core value proposition and key features"
+
+  - id: slide-content
+    title: "Slide {{slide_number}}: {{slide_title}}"
+    repeatable: true
+    instruction: |
+      For each slide in the outline, draft the complete content. Use markdown formatting:
+
+      # Slide Title
+
+      Main content here - keep it concise and impactful. Use:
+      - **Bold** for emphasis
+      - Bullet points for lists
+      - > Blockquotes for key takeaways
+      - Short paragraphs (2-3 sentences max)
+
+      ---
+
+      The `---` separator tells Gamma to create a new slide/card.
+
+      Guidelines:
+      - Aim for 30-50 words per slide (excluding title)
+      - Use powerful, action-oriented language
+      - Include data points and specific examples
+      - Consider visual hierarchy (what's most important?)
+
+      After presenting each slide, ask if the user wants to refine before moving to the next.
+    elicit: true
+
+  - id: visual-guidance
+    title: Visual and Design Guidance
+    instruction: |
+      Provide guidance for visual elements that will enhance the presentation:
+
+      1. Image suggestions for key slides
+      2. Color scheme preferences (if not using default theme)
+      3. Chart/graph recommendations for data slides
+      4. Icon or illustration suggestions
+
+      Note: Gamma's AI will generate appropriate visuals, but specific guidance helps.
+    elicit: false
+
+  - id: final-markdown
+    title: Complete Presentation Markdown
+    instruction: |
+      Compile all slides into a single, properly formatted markdown document with slide breaks (---).
+
+      This markdown will be used as the `inputText` parameter for the Gamma API.
+
+      Format:
+      ```markdown
+      # Slide 1 Title
+      Content for slide 1...
+
+      ---
+
+      # Slide 2 Title
+      Content for slide 2...
+
+      ---
+
+      [Continue for all slides...]
+      ```
+
+      Save this to the output file specified in template configuration.
+
+  - id: api-parameters
+    title: Gamma API Configuration
+    instruction: |
+      Based on the presentation configuration and content, generate the complete API request parameters:
+
+      ```json
+      {
+        "inputText": "[Complete markdown from final-markdown section]",
+        "textMode": "[generate|preserve|condense]",
+        "format": "[presentation|document|webpage]",
+        "numCards": [number],
+        "textOptions": {
+          "amount": "[brief|standard|detailed]",
+          "tone": "[user's desired tone]",
+          "audience": "[target audience description]",
+          "language": "en"
+        },
+        "imageOptions": {
+          "source": "aiGenerated"
+        }
+      }
+      ```
+
+      Display this configuration to the user for review before upload.
+
+  - id: next-steps
+    title: Next Steps
+    sections:
+      - id: upload-instructions
+        title: Upload to Gamma
+        instruction: |
+          Provide clear next steps:
+
+          1. Review the generated markdown and API configuration above
+          2. If you have a Gamma Pro account with API access, use the `*upload-to-gamma` command
+          3. Alternatively, copy the markdown and paste into Gamma's web interface
+          4. The presentation will be generated using Gamma's AI-powered design
+
+          Would you like to proceed with API upload or manual creation?
