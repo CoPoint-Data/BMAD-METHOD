@@ -1,10 +1,9 @@
-# BMad Method & BMad Core
+# CoPoint BMad Method
 
-[![Stable Version](https://img.shields.io/npm/v/bmad-method?color=blue&label=stable)](https://www.npmjs.com/package/bmad-method)
-[![Alpha Version](https://img.shields.io/npm/v/bmad-method/alpha?color=orange&label=alpha)](https://www.npmjs.com/package/bmad-method)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)](https://nodejs.org)
-[![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white)](https://discord.gg/gk8jAdXWmj)
+
+> **CoPoint's internal fork of BMad Method with custom agents and workflows.**
 
 ## AI-Driven Agile Development That Scales From Bug Fixes to Enterprise
 
@@ -50,17 +49,25 @@ With **BMad Builder**, you can architect both simple agents and vastly complex d
 
 ## 🚀 Get Started in 3 Steps
 
-### 1. Install BMad Method
+### 1. Configure GitHub Packages Authentication
+
+This package is hosted on GitHub Packages. First, configure npm to use the correct registry:
 
 ```bash
-# Install v6 Alpha (recommended)
-npx bmad-method@alpha install
+# Add registry config to your project (or global ~/.npmrc)
+echo "@copoint-data:registry=https://npm.pkg.github.com" >> .npmrc
 
-# Or stable v4 for production
-npx bmad-method install
+# Login to GitHub Packages (use your GitHub username and a Personal Access Token with read:packages scope)
+npm login --registry=https://npm.pkg.github.com --scope=@copoint-data
 ```
 
-### 2. Initialize Your Project
+### 2. Install BMad Method
+
+```bash
+npx @copoint-data/bmad-method install
+```
+
+### 3. Initialize Your Project
 
 Load any agent in your IDE and run:
 
@@ -109,6 +116,12 @@ Each agent brings deep expertise and can be customized to match your team's styl
 
 ## 📦 What's Included
 
+### CoPoint Custom Module
+
+- **CoPoint Module** - CoPoint-specific agents and integrations
+  - **Gigi (Gamma Agent)** - Create presentations via Gamma API
+  - Custom workflows for CoPoint projects
+
 ### Core Modules
 
 - **BMad Method (BMM)** - Complete agile development framework
@@ -150,12 +163,10 @@ Each agent brings deep expertise and can be customized to match your team's styl
 - **[v4 Documentation](https://github.com/bmad-code-org/BMAD-METHOD/tree/V4)**
 - **[v4 to v6 Upgrade Guide](./docs/v4-to-v6-upgrade.md)**
 
-## 💬 Community & Support
+## 💬 Support
 
-- **[Discord Community](https://discord.gg/gk8jAdXWmj)** - Get help, share projects
-- **[GitHub Issues](https://github.com/bmad-code-org/BMAD-METHOD/issues)** - Report bugs, request features
-- **[YouTube Channel](https://www.youtube.com/@BMadCode)** - Video tutorials and demos
-- **[Web Bundles](https://bmad-code-org.github.io/bmad-bundles/)** - Pre-built agent bundles
+- **[GitHub Issues](https://github.com/CoPoint-Data/BMAD-METHOD/issues)** - Report bugs, request features
+- **[Upstream BMad Community](https://discord.gg/gk8jAdXWmj)** - Original BMad Discord
 - **[Code of Conduct](.github/CODE_OF_CONDUCT.md)** - Community guidelines
 
 ## 🛠️ Development
@@ -207,11 +218,5 @@ MIT License - See [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
-  <a href="https://github.com/bmad-code-org/BMAD-METHOD/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=bmad-code-org/BMAD-METHOD" alt="Contributors">
-  </a>
-</p>
-
-<p align="center">
-  <sub>Built with ❤️ for the human-AI collaboration community</sub>
+  <sub>CoPoint fork of <a href="https://github.com/bmad-code-org/BMAD-METHOD">BMad Method</a></sub>
 </p>
