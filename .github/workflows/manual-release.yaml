@@ -47,7 +47,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Bump version
-        run: npm run version:${{ github.event.inputs.version_bump }}
+        run: npm version ${{ github.event.inputs.version_bump }} --no-git-tag-version
 
       - name: Get new version and previous tag
         id: version
